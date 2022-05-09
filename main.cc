@@ -54,11 +54,14 @@ int main() {
 
     // Camera
 
-	const point3 lookfrom = point3(-2,2,1);
-	const point3 lookto = point3(0,0,-1);
-	const double fov = 50.0;
+	point3 lookfrom(3,3,2);
+	point3 lookat(0,0,-1);
+	vec3 vup(0,1,0);
+	auto dist_to_focus = (lookfrom-lookat).length();
+	auto aperture = 2.0;
+	auto fov = 20;
 
-	camera cam(lookfrom, lookto, vec3(0,1,0), fov, aspect_ratio);
+	camera cam(lookfrom, lookat, vup, fov, aspect_ratio, aperture, dist_to_focus);
 
     // Render
 
