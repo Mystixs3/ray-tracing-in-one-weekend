@@ -92,6 +92,16 @@ hittable_list two_spheres() {
 }
 
 
+hittable_list two_perlin_spheres() {
+    hittable_list objects;
+
+    auto pertext = make_shared<noise_texture>(4);
+    objects.add(make_shared<sphere>(point3(0,-1000,0), 1000, make_shared<lambertian>(pertext)));
+    objects.add(make_shared<sphere>(point3(0, 2, 0), 2, make_shared<lambertian>(pertext)));
+
+    return objects;
+}
+
 
 int main() {
 
@@ -112,7 +122,7 @@ int main() {
 	auto vfov = 40.0;
 	auto aperture = 0.0;
 
-	switch (2) {
+	switch (3) {
 	    default:
 	    case 1:
 	        world = random_scene();
@@ -128,6 +138,13 @@ int main() {
 	        lookat = point3(0,0,0);
 	        vfov = 20.0;
 	        break;
+
+        case 3:
+            world = two_perlin_spheres();
+            lookfrom = point3(13,2,3);
+            lookat = point3(0,0,0);
+            vfov = 20.0;
+            break;
 	}
 
 	// Camera
